@@ -1,0 +1,138 @@
+{% extends 'editor/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="create-path">
+    <h2>Create New Path</h2>
+    <form method="post" class="create-path-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+
+        <div class="form-group">
+            <label>{{ form.background.label }}</label>
+            <div class="background-options">
+                {% for background in backgrounds %}
+                <label class="background-option">
+                    <input type="radio" name="background" value="{{ background.id }}" {% if forloop.first %}checked{% endif %}>
+                    <div class="img-wrapper">
+                        <img src="{{ background.image.url }}" alt="{{ background.name }}">
+                    </div>
+                    <div class="background-name">{{ background.name }}</div>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+
+        <button type="submit" class="button button-primary">Create Path</button>
+    </form>
+</div>
+
+<style>
+    .create-path {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-path h2 {
+        margin-bottom: 2rem;
+        color: #333;
+        font-size: 1.8rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+    }
+
+    .background-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .background-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        aspect-ratio: 1;
+        text-decoration: none;
+    }
+
+    .background-option:hover {
+        border-color: #4CAF50;
+        transform: translateY(-2px);
+    }
+
+    .background-option input[type="radio"] {
+        display: none;
+    }
+
+    .background-option input[type="radio"]:checked + .img-wrapper img {
+        border: 3px solid #4CAF50;
+        box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    }
+
+    .img-wrapper {
+        width: 100%;
+        height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .background-option img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 140px;
+        object-fit: contain;
+        border: 3px solid transparent;
+        transition: all 0.2s;
+        margin: 0.5rem;
+    }
+
+    .background-option .background-name {
+        text-align: center;
+        color: #666;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-top: 0.5rem;
+        width: 100%;
+    }
+
+    .create-path-form button {
+        width: 100%;
+        padding: 0.75rem;
+        margin-top: 1rem;
+    }
+</style>
+{% endblock %}

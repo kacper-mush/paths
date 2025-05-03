@@ -1,0 +1,52 @@
+{% extends 'editor/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/editor_styles.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div id="container">
+    <img id="background-image" src="{{ background_url }}">
+    <svg id="line-svg-layer"></svg>
+    <svg id="point-svg-layer"></svg>
+</div>
+
+<div id="overlay" class="edit-overlay">
+    <div class="overlay-header">
+        <h3 class="overlay-title">{{ path.name }}</h3>
+        <button id="toggleUI" class="button button-secondary">Hide</button>
+    </div>
+    <div class="overlay-actions">
+        <button data-url="{% url 'dashboard' %}" class="button button-secondary dashboard-button">Back to
+            Dashboard</button>
+        <button id="save-button" type="submit" form="point-form" class="button button-primary">Save Path</button>
+    </div>
+    <div id="point-list"></div>
+</div>
+
+<div id="overlayTab" class="overlay-tab">
+    <span>Show UI</span>
+</div>
+
+<form id="point-form" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="points" id="points-input">
+</form>
+
+<template id="point-item-template">
+    <div class="point-item">
+        <span class="point-label"></span>
+        <button class="button button-danger delete-point">Delete</button>
+    </div>
+</template>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.pointCords = JSON.parse('{{ points_json|safe }}');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="{% static 'js/editor_scripts.js' %}"></script>
+{% endblock %}

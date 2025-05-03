@@ -1,0 +1,50 @@
+POST http://127.0.0.1:8000/api/auth/
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Algida11"
+}
+
+###
+
+PUT http://127.0.0.1:8000/api/paths/2/points/393/
+Content-Type: application/json
+Authorization: Token 9b89f6a2800f03744091b848ff5d9a67ce36a6e6
+
+{
+  "x": 1500,
+  "y": 6100,
+  "order": 0
+}
+
+
+###
+
+POST   http://127.0.0.1:8000/api/paths/13/points/
+Content-Type: application/json
+Authorization: Token 9b89f6a2800f03744091b848ff5d9a67ce36a6e6
+
+{
+  "x": 1500,
+  "y": 6100,
+  "order": 0
+}
+
+### admin
+
+GET http://127.0.0.1:8000/api/paths/13/points/416
+Content-Type: application/json
+Authorization: Token 7adca11bf7b547a48792fb6246b48bd09da42978
+
+###
+
+DELETE http://127.0.0.1:8000/api/paths/2/points/393/
+Content-Type: application/json
+Authorization: Token 7adca11bf7b547a48792fb6246b48bd09da42978
+
+{
+  "x": 1500,
+  "y": 6100,
+  "order": 0
+}

@@ -1,0 +1,30 @@
+{% extends 'editor/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/display_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="container">
+    <img id="background-image" src="{{ background_url }}">
+    <svg id="line-svg-layer"></svg>
+    <svg id="point-svg-layer"></svg>
+</div>
+
+
+<div class="overlay">
+    <h3 class="path-name">{{ path.name }}</h3>
+    <div class="button-group">
+        <a href="{% url 'dashboard' %}" class="button button-secondary">Back to Dashboard</a>
+        <a href="{% url 'edit_path' path.id %}" class="button button-primary">Edit Path</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.pointCords = JSON.parse('{{ points_json|safe }}');
+</script>
+<script src="{% static 'js/display_scripts.js' %}"></script>
+{% endblock %}
